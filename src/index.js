@@ -12,7 +12,7 @@ let server;
 
 server = app.listen(PORT, () => {
     logger.info(`Server is running on port ${PORT}`);
-    throw new Error('This is an error');
+    // throw new Error('This is an error');
 });
 
 const unexpectedErrorHandler = (error) => {
