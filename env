@@ -1,1 +1,2 @@
 PORT=8000
+mongodb+srv://sari:sari@wp-bd.tbs3kjz.mongodb.net/?retryWrites=true&w=majority&appName=wp-bd
