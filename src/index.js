@@ -26,3 +26,10 @@ const unexpectedErrorHandler = (error) => {
 };
 process.on('uncaughtException', unexpectedErrorHandler);
 process.on('unhandledRejection', unexpectedErrorHandler);
+
+process.on("SIGTERM", () => {
+    if (server) {
+      logger.info("Server closed.");
+      process.exit(1);
+    }
+  });
