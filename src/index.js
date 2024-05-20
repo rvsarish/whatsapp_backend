@@ -1,11 +1,21 @@
 import dotenv from 'dotenv';
-
+import mongoose from 'mongoose';
 import app from './app.js';
 import logger from './configs/logger.config.js';
 
 
 dotenv.config();
 
+const DATABASE_URL = process.env.DATABASE_URL;
+// , {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+// }
+mongoose.connect(DATABASE_URL).then(() => {
+    logger.info('Connected to MongoDB');
+}).catch((error) => {
+    logger.error(error.message);
+});
 
 const PORT = process.env.PORT || 8000;
 let server;
@@ -33,3 +43,4 @@ process.on("SIGTERM", () => {
       process.exit(1);
     }
   });
+
