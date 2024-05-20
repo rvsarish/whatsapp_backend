@@ -7,7 +7,7 @@ import mongoSanitize from 'express-mongo-sanitize';
 import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import fileUpload from 'express-fileupload';
-
+import createhttpError from 'http-errors';
 dotenv.config();
 
 const app = express();
@@ -26,8 +26,21 @@ app.use(cors());
 app.use(compression());
 
 app.get('/test', (req, res) => {
+    throw createhttpError.BadRequest('Route has an error');
     res.send('Hello World');
 });
+app.use(async (req, res, next) => {
+    next(createHttpError.NotFound("This route does not exist."));
+  });
 
+app.use(async(err,req,res,next)=>{
+    res.status(err.status || 500);
+    res.send({
+        error: {
+            status: err.status || 500,
+            message: err.message
+        }
+    });
+   });
 
 export default app;
